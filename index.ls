@@ -2,4 +2,4 @@ require! {
 	'prelude-ls': {id}
 }
 
-export = id
+module.exports = id
