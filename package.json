@@ -4,7 +4,8 @@
   "description": "Line Break for East Asian People",
   "main": "index.js",
   "scripts": {
-    "test": "gulp test"
+    "test": "gulp test",
+    "build": "gulp"
   },
   "repository": {
     "type": "git",
