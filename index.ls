@@ -1,5 +1,6 @@
 require! {
-	'prelude-ls': {id}
+  'prelude-ls': {id}
+  xtend: extend
 }
 
-module.exports = id
+module.exports = (texts, options = {}) -> texts
