@@ -31,6 +31,7 @@
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-livescript": "^2.4.0",
+    "gulp-mocha": "^2.2.0",
     "gulp-rename": "^1.2.2",
     "livescript": "^1.4.0"
   },
