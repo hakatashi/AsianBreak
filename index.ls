@@ -9,9 +9,9 @@ module.exports = (texts, options = {}) ->
   default-options = {
     -collapse-head
     -collapse-tail
-    -collapse-inline-whitespace
+    -collapse-inline-white-space
     -collapse-all-break
-    -collapse-zwsp
+    -remove-zwsp
   }
 
   options = extend {}, options, default-options
