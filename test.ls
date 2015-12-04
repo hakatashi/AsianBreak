@@ -45,6 +45,82 @@ test-suite =
         '日本語中国话'
       * '日本語  \n   \n   \n   中国话'
         '日本語中国话'
+  fullwidth:
+    title: 'Fullwidth characters around line break'
+    source: 'https://github.com/w3c/csswg-test/blob/master/css-text-3/white-space/seg-break-transformation-002.html'
+    cases:
+      * 'ＦＵＬＬ\nＷＩＤＴＨ'
+        'ＦＵＬＬＷＩＤＴＨ'
+      * 'ＦＵＬＬ   \nＷＩＤＴＨ'
+        'ＦＵＬＬＷＩＤＴＨ'
+      * 'ＦＵＬＬ\n        ＷＩＤＴＨ'
+        'ＦＵＬＬＷＩＤＴＨ'
+      * 'ＦＵＬＬ   \n     ＷＩＤＴＨ'
+        'ＦＵＬＬＷＩＤＴＨ'
+      * 'ＦＵＬＬ\n\n\nＷＩＤＴＨ'
+        'ＦＵＬＬＷＩＤＴＨ'
+      * 'ＦＵＬＬ  \n   \n   \n   ＷＩＤＴＨ'
+        'ＦＵＬＬＷＩＤＴＨ'
+  halfwidth:
+    title: 'Halfwidth characters around line break'
+    source: 'https://github.com/w3c/csswg-test/blob/master/css-text-3/white-space/seg-break-transformation-003.html'
+    cases:
+      * 'ﾊﾝ\nｶｸ'
+        'ﾊﾝｶｸ'
+      * 'ﾊﾝ   \nｶｸ'
+        'ﾊﾝｶｸ'
+      * 'ﾊﾝ\n        ｶｸ'
+        'ﾊﾝｶｸ'
+      * 'ﾊﾝ   \n     ｶｸ'
+        'ﾊﾝｶｸ'
+      * 'ﾊﾝ\n\n\nｶｸ'
+        'ﾊﾝｶｸ'
+      * 'ﾊﾝ  \n   \n   \n   ｶｸ'
+        'ﾊﾝｶｸ'
+  won-halfwidth:
+    title: 'Won and halfwidth characters around line break'
+    source: 'https://github.com/w3c/csswg-test/blob/master/css-text-3/white-space/seg-break-transformation-004.html'
+    cases:
+      * '₩\n２４'
+        '₩２４'
+      * '₩   \n２４'
+        '₩２４'
+      * '₩\n        ２４'
+        '₩２４'
+      * '₩   \n     ２４'
+        '₩２４'
+      * '₩\n\n\n２４'
+        '₩２４'
+      * '₩  \n   \n   \n   ２４'
+        '₩２４'
+      * '２４\n₩'
+        '２４₩'
+      * '２４   \n₩'
+        '２４₩'
+      * '２４\n        ₩'
+        '２４₩'
+      * '２４   \n     ₩'
+        '２４₩'
+      * '２４\n\n\n₩'
+        '２４₩'
+      * '２４  \n   \n   \n   ₩'
+        '２４₩'
+  wide-non-wide:
+    title: 'Wide character and non-wide character around line break'
+    source: 'https://github.com/w3c/csswg-test/blob/master/css-text-3/white-space/seg-break-transformation-005.html'
+    cases:
+      * '漢字\nkanji'
+        '漢字 kanji'
+      * '漢字   \nkanji'
+        '漢字 kanji'
+      * '漢字\n        kanji'
+        '漢字 kanji'
+      * '漢字   \n     kanji'
+        '漢字 kanji'
+      * '漢字\n\n\nkanji'
+        '漢字 kanji'
+      * '漢字  \n   \n   \n   kanji'
+        '漢字 kanji'
   white-space:
     title: 'White space collapse'
     source: 'https://github.com/w3c/csswg-test/blob/master/css-text-3/white-space/white-space-collapse-000.html'
@@ -103,11 +179,27 @@ It = global.it
 
 describe 'Basic Usage' ->
   describe 'Single text' ->
-    It 'converts breakline(s) between wide characters nothing' ->
+    It 'converts breakline(s) between wide characters into nothing' ->
       for [before, after] in test-suite.wide.cases
         expect asianbreak before .to.equal after
 
+    It 'converts breakline(s) between fullwidth characters into nothing' ->
+      for [before, after] in test-suite.fullwidth.cases
+        expect asianbreak before .to.equal after
+
+    It 'converts breakline(s) between halfwidth characters into nothing' ->
+      for [before, after] in test-suite.halfwidth.cases
+        expect asianbreak before .to.equal after
+
+    It 'converts breakline(s) between won and halfwidth characters into nothing' ->
+      for [before, after] in test-suite.won-halfwidth.cases
+        expect asianbreak before .to.equal after
+
     It 'keeps non-CJK segment break transformation rules untouched' ->
+      for [test, _] in test-suite.basic.cases
+        expect asianbreak test .to.equal test
+
+    It 'keeps segment break between CJK and non-CJK charanters untouched' ->
       for [test, _] in test-suite.basic.cases
         expect asianbreak test .to.equal test
 
