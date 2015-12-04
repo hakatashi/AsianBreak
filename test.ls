@@ -361,6 +361,24 @@ test-suite =
       * '日本語  \n   \n   \n   中国话  \n   \n   '
         '日本語中国话  \n   \n   '
         '日本語中国话'
+  head-and-tail:
+    title: 'Wide characters with heading and tailing whitespaces'
+    cases:
+      * '    日本語    '
+        '    日本語    '
+        '日本語'
+      * '    日本語\t\t\n\t\t'
+        '    日本語\t\t\n\t\t'
+        '日本語'
+      * '\t\t\n\t\t日本語\n\t\t\n\t'
+        '\t\t\n\t\t日本語\n\t\t\n\t'
+        '日本語'
+      * '\n\n\n日本語\n\n\n中国话\n\n\n'
+        '\n\n\n日本語中国话\n\n\n'
+        '日本語中国话'
+      * '  \n   \n   \n   日本語  \n   \n   \n   中国话  \n   \n   '
+        '  \n   \n   \n   日本語中国话  \n   \n   '
+        '日本語中国话'
 
 # `it` is reserved in livescript
 It = global.it
@@ -440,5 +458,9 @@ describe 'Basic Usage' ->
         expect asianbreak before .to.equal after
 
     It 'keeps tailing whitespaces and segment breaks untouched' ->
+      for [before, after, _] in test-suite.tail.cases
+        expect asianbreak before .to.equal after
+
+    It 'keeps heading and tailing whitespaces and segment breaks untouched' ->
       for [before, after, _] in test-suite.tail.cases
         expect asianbreak before .to.equal after
