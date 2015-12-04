@@ -7,3 +7,6 @@ install: npm install
 script: npm test
 notifications:
   webhooks: http://webhook.hakatashi.com/travis
+  email:
+    on_success: change
+    on_failure: change
