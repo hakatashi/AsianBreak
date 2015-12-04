@@ -16,4 +16,13 @@ module.exports = (texts, options = {}) ->
 
   options = extend {}, options, default-options
 
+  switch typeof! texts
+    | \String => segments = [texts]
+    | \Array => segments = texts
+    | otherwise => throw new Error 'Unsupported text type'
+
+  for index, segment of segments
+    prev-segment = segments[index - 1] ? null
+    next-segment = segments[index + 1] ? null
+
   return texts
