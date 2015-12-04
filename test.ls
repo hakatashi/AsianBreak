@@ -54,3 +54,7 @@ describe 'Basic Usage' ->
     It 'converts breakline(s) between wide characters nothing' ->
       for [before, after] in test-suite.wide.cases
         expect asianbreak before .to.equal after
+
+    It 'keeps non-CJK segment break transformation rules untouched' ->
+      for [before, after] in test-suite.basic.cases
+        expect asianbreak before .to.equal before
