@@ -14,8 +14,9 @@ module.exports = (texts, options = {}) ->
     -remove-zwsp
   }
 
-  options = extend {}, options, default-options
+  options = extend {}, default-options, options
 
+  # Normalize input
   switch typeof! texts
     | \String => segments = [texts]
     | \Array => segments = texts
