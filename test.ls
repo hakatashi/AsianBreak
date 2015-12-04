@@ -45,6 +45,58 @@ test-suite =
         '日本語中国话'
       * '日本語  \n   \n   \n   中国话'
         '日本語中国话'
+  white-space:
+    title: 'White space collapse'
+    source: 'https://github.com/w3c/csswg-test/blob/master/css-text-3/white-space/white-space-collapse-000.html'
+    cases:
+      * '    hello   \t       there    '
+        'hello   \t       there'
+        'hello there'
+      * '    缔造真正全球通行       \t   的万维网    '
+        '缔造真正全球通行       \t   的万维网'
+        '缔造真正全球通行 的万维网'
+      * '    ＦＵＬＬ   \t        ＷＩＤＴＨ    '
+        'ＦＵＬＬ   \t        ＷＩＤＴＨ'
+        'ＦＵＬＬ ＷＩＤＴＨ'
+      * '    ﾊﾝ   \t         ｶｸ    '
+        'ﾊﾝ   \t         ｶｸ'
+        'ﾊﾝ ｶｸ'
+  head:
+    title: 'Wide characters with heading whitespaces'
+    cases:
+      * '    日本語'
+        '    日本語'
+        '日本語'
+      * '\t\t\n\t\t日本語'
+        '\t\t\n\t\t日本語'
+        '日本語'
+      * '  \n   \n    日本語'
+        '  \n   \n    日本語'
+        '日本語'
+      * '\n\n\n日本語\n\n\n中国话'
+        '\n\n\n日本語中国话'
+        '日本語中国话'
+      * '  \n   \n   日本語  \n   \n   \n   中国话'
+        '  \n   \n   日本語中国话'
+        '日本語中国话'
+  tail:
+    title: 'Wide characters with tailing whitespaces'
+    cases:
+      * '日本語    '
+        '日本語    '
+        '日本語'
+      * '日本語\t\t\n\t\t'
+        '日本語\t\t\n\t\t'
+        '日本語'
+      * '日本語  \n   \n    '
+        '日本語  \n   \n    '
+        '日本語'
+      * '日本語\n\n\n中国话\n\n\n'
+        '日本語中国话\n\n\n'
+        '日本語中国话'
+      * '日本語  \n   \n   \n   中国话  \n   \n   '
+        '日本語中国话  \n   \n   '
+        '日本語中国话'
 
 # `it` is reserved in livescript
 It = global.it
@@ -56,5 +108,17 @@ describe 'Basic Usage' ->
         expect asianbreak before .to.equal after
 
     It 'keeps non-CJK segment break transformation rules untouched' ->
-      for [before, after] in test-suite.basic.cases
-        expect asianbreak before .to.equal before
+      for [test, _] in test-suite.basic.cases
+        expect asianbreak test .to.equal test
+
+    It 'keeps whitespaces among line untouched' ->
+      for [_, test, _] in test-suite.white-space.cases
+        expect asianbreak test .to.equal test
+
+    It 'keeps heading whitespaces and segment breaks untouched' ->
+      for [before, after, _] in test-suite.head.cases
+        expect asianbreak before .to.equal after
+
+    It 'keeps tailing whitespaces and segment breaks untouched' ->
+      for [before, after, _] in test-suite.tail.cases
+        expect asianbreak before .to.equal after
