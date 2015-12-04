@@ -185,6 +185,54 @@ test-suite =
         'ＦＵＬＬｶｸ'
       * 'ＦＵＬＬ  \n   \n   \n   ｶｸ'
         'ＦＵＬＬｶｸ'
+  hangul:
+    title: 'Hangul characters around line break'
+    source: 'https://github.com/w3c/csswg-test/blob/master/css-text-3/white-space/seg-break-transformation-010.html'
+    cases:
+      * '한글\n쓰기'
+        '한글 쓰기'
+      * '한글   \n쓰기'
+        '한글 쓰기'
+      * '한글\n        쓰기'
+        '한글 쓰기'
+      * '한글   \n     쓰기'
+        '한글 쓰기'
+      * '한글\n\n\n쓰기'
+        '한글 쓰기'
+      * '한글  \n   \n   \n   쓰기'
+        '한글 쓰기'
+  hangul-jamo:
+    title: 'Hangul jamo characters around line break'
+    source: 'https://github.com/w3c/csswg-test/blob/master/css-text-3/white-space/seg-break-transformation-011.html'
+    cases:
+      * '하ᄂ\n그ᄅ'
+        '하ᄂ 그ᄅ'
+      * '하ᄂ   \n그ᄅ'
+        '하ᄂ 그ᄅ'
+      * '하ᄂ\n        그ᄅ'
+        '하ᄂ 그ᄅ'
+      * '하ᄂ   \n     그ᄅ'
+        '하ᄂ 그ᄅ'
+      * '하ᄂ\n\n\n그ᄅ'
+        '하ᄂ 그ᄅ'
+      * '하ᄂ  \n   \n   \n   그ᄅ'
+        '하ᄂ 그ᄅ'
+  halfwidth-jamo:
+    title: 'Hangul halfwidth jamo characters around line break'
+    source: 'https://github.com/w3c/csswg-test/blob/master/css-text-3/white-space/seg-break-transformation-012.html'
+    cases:
+      * 'ﾾￂﾤ\nﾡￚﾩ'
+        'ﾾￂﾤ ﾡￚﾩ'
+      * 'ﾾￂﾤ   \nﾡￚﾩ'
+        'ﾾￂﾤ ﾡￚﾩ'
+      * 'ﾾￂﾤ\n        ﾡￚﾩ'
+        'ﾾￂﾤ ﾡￚﾩ'
+      * 'ﾾￂﾤ   \n     ﾡￚﾩ'
+        'ﾾￂﾤ ﾡￚﾩ'
+      * 'ﾾￂﾤ\n\n\nﾡￚﾩ'
+        'ﾾￂﾤ ﾡￚﾩ'
+      * 'ﾾￂﾤ  \n   \n   \n   ﾡￚﾩ'
+        'ﾾￂﾤ ﾡￚﾩ'
   white-space:
     title: 'White space collapse'
     source: 'https://github.com/w3c/csswg-test/blob/master/css-text-3/white-space/white-space-collapse-000.html'
@@ -281,6 +329,18 @@ describe 'Basic Usage' ->
 
     It 'keeps segment break between fullwidth and non-fullwidth charanters untouched' ->
       for [test, _] in test-suite.fullwidth-non-fullwidth.cases
+        expect asianbreak test .to.equal test
+
+    It 'keeps segment break between hangul charanters untouched' ->
+      for [test, _] in test-suite.hangul.cases
+        expect asianbreak test .to.equal test
+
+    It 'keeps segment break between hangul jamo charanters untouched' ->
+      for [test, _] in test-suite.hangul-jamo.cases
+        expect asianbreak test .to.equal test
+
+    It 'keeps segment break between halfwidth hangul jamo charanters untouched' ->
+      for [test, _] in test-suite.halfwidth-jamo.cases
         expect asianbreak test .to.equal test
 
     It 'keeps whitespaces among line untouched' ->
