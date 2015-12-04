@@ -121,6 +121,70 @@ test-suite =
         '漢字 kanji'
       * '漢字  \n   \n   \n   kanji'
         '漢字 kanji'
+  fullwidth-non-fullwidth:
+    title: 'Fullwidth character and non-fullwidth character around line break'
+    source: 'https://github.com/w3c/csswg-test/blob/master/css-text-3/white-space/seg-break-transformation-006.html'
+    cases:
+      * 'ＦＵＬＬ\nwidth'
+        'ＦＵＬＬ width'
+      * 'ＦＵＬＬ   \nwidth'
+        'ＦＵＬＬ width'
+      * 'ＦＵＬＬ\n        width'
+        'ＦＵＬＬ width'
+      * 'ＦＵＬＬ   \n     width'
+        'ＦＵＬＬ width'
+      * 'ＦＵＬＬ\n\n\nwidth'
+        'ＦＵＬＬ width'
+      * 'ＦＵＬＬ  \n   \n   \n   width'
+        'ＦＵＬＬ width'
+  halfwidth-non-halfwidth:
+    title: 'Halfwidth character and non-halfwidth character around line break'
+    source: 'https://github.com/w3c/csswg-test/blob/master/css-text-3/white-space/seg-break-transformation-007.html'
+    cases:
+      * 'han\nｶｸ'
+        'han ｶｸ'
+      * 'han   \nｶｸ'
+        'han ｶｸ'
+      * 'han\n        ｶｸ'
+        'han ｶｸ'
+      * 'han   \n     ｶｸ'
+        'han ｶｸ'
+      * 'han\n\n\nｶｸ'
+        'han ｶｸ'
+      * 'han  \n   \n   \n   ｶｸ'
+        'han ｶｸ'
+  wide-and-fullwidth:
+    title: 'Wide and fullwidth characters around line break'
+    source: 'https://github.com/w3c/csswg-test/blob/master/css-text-3/white-space/seg-break-transformation-008.html'
+    cases:
+      * '日本語\nＷＩＤＴＨ'
+        '日本語ＷＩＤＴＨ'
+      * '日本語   \nＷＩＤＴＨ'
+        '日本語ＷＩＤＴＨ'
+      * '日本語\n        ＷＩＤＴＨ'
+        '日本語ＷＩＤＴＨ'
+      * '日本語   \n     ＷＩＤＴＨ'
+        '日本語ＷＩＤＴＨ'
+      * '日本語\n\n\nＷＩＤＴＨ'
+        '日本語ＷＩＤＴＨ'
+      * '日本語  \n   \n   \n   ＷＩＤＴＨ'
+        '日本語ＷＩＤＴＨ'
+  fullwidth-and-halfwidth:
+    title: 'Fullwidth and halfwidth characters around line break'
+    source: 'https://github.com/w3c/csswg-test/blob/master/css-text-3/white-space/seg-break-transformation-009.html'
+    cases:
+      * 'ＦＵＬＬ\nｶｸ'
+        'ＦＵＬＬｶｸ'
+      * 'ＦＵＬＬ   \nｶｸ'
+        'ＦＵＬＬｶｸ'
+      * 'ＦＵＬＬ\n        ｶｸ'
+        'ＦＵＬＬｶｸ'
+      * 'ＦＵＬＬ   \n     ｶｸ'
+        'ＦＵＬＬｶｸ'
+      * 'ＦＵＬＬ\n\n\nｶｸ'
+        'ＦＵＬＬｶｸ'
+      * 'ＦＵＬＬ  \n   \n   \n   ｶｸ'
+        'ＦＵＬＬｶｸ'
   white-space:
     title: 'White space collapse'
     source: 'https://github.com/w3c/csswg-test/blob/master/css-text-3/white-space/white-space-collapse-000.html'
@@ -195,12 +259,28 @@ describe 'Basic Usage' ->
       for [before, after] in test-suite.won-halfwidth.cases
         expect asianbreak before .to.equal after
 
+    It 'converts breakline(s) between wide and fullwidth characters into nothing' ->
+      for [before, after] in test-suite.wide-and-fullwidth.cases
+        expect asianbreak before .to.equal after
+
+    It 'converts breakline(s) between fullwidth and halfwidth characters into nothing' ->
+      for [before, after] in test-suite.fullwidth-and-halfwidth.cases
+        expect asianbreak before .to.equal after
+
     It 'keeps non-CJK segment break transformation rules untouched' ->
       for [test, _] in test-suite.basic.cases
         expect asianbreak test .to.equal test
 
     It 'keeps segment break between CJK and non-CJK charanters untouched' ->
-      for [test, _] in test-suite.basic.cases
+      for [test, _] in test-suite.wide-non-wide.cases
+        expect asianbreak test .to.equal test
+
+    It 'keeps segment break between halfwidth and non-halfwidth charanters untouched' ->
+      for [test, _] in test-suite.halfwidth-non-halfwidth.cases
+        expect asianbreak test .to.equal test
+
+    It 'keeps segment break between fullwidth and non-fullwidth charanters untouched' ->
+      for [test, _] in test-suite.fullwidth-non-fullwidth.cases
         expect asianbreak test .to.equal test
 
     It 'keeps whitespaces among line untouched' ->
