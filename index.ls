@@ -26,7 +26,7 @@ module.exports = (texts, options = {}) ->
   # We store transformed new segments into new array.
   new-segments = []
 
-  for segment-index, segment of segments
+  for segment, segment-index in segments
     prev-segment = segments[segment-index - 1] ? null
     next-segment = segments[segment-index + 1] ? null
 
@@ -41,12 +41,15 @@ module.exports = (texts, options = {}) ->
     spans = segment.split /([ \t\r\n]+)/
 
     # Iterate over matched whitespaces
-    for span-index, span in spans when span-index % 2 is 1
+    for span, span-index in spans when span-index % 2 is 1
       prev-span = spans[span-index - 1]
       next-span = spans[span-index + 1]
 
       prev-character = prev-span[* - 1] ? prev-segment?[* - 1] ? null
       next-character = next-span.0 ? next-segment?.0 ? null
+
+      prev-width = east-asian-width prev-character if prev-character?
+      next-width = east-asian-width next-character if next-character?
 
     new-segments.push spans.join ''
 
