@@ -233,6 +233,82 @@ test-suite =
         'ﾾￂﾤ ﾡￚﾩ'
       * 'ﾾￂﾤ  \n   \n   \n   ﾡￚﾩ'
         'ﾾￂﾤ ﾡￚﾩ'
+  thai:
+    title: 'Thai characters around line break'
+    source: 'https://github.com/w3c/csswg-test/blob/master/css-text-3/white-space/seg-break-transformation-014.html'
+    cases:
+      * 'ภาษา\nไทย'
+        'ภาษา ไทย'
+      * 'ภาษา   \nไทย'
+        'ภาษา ไทย'
+      * 'ภาษา\n        ไทย'
+        'ภาษา ไทย'
+      * 'ภาษา   \n     ไทย'
+        'ภาษา ไทย'
+      * 'ภาษา\n\n\nไทย'
+        'ภาษา ไทย'
+      * 'ภาษา  \n   \n   \n   ไทย'
+        'ภาษา ไทย'
+  thai-and-latin:
+    title: 'Thai and Latin characters around line break'
+    source: 'https://github.com/w3c/csswg-test/blob/master/css-text-3/white-space/seg-break-transformation-015.html'
+    cases:
+      * 'ภาษา\nlatin'
+        'ภาษา latin'
+      * 'ภาษา   \nlatin'
+        'ภาษา latin'
+      * 'ภาษา\n        latin'
+        'ภาษา latin'
+      * 'ภาษา   \n     latin'
+        'ภาษา latin'
+      * 'ภาษา\n\n\nlatin'
+        'ภาษา latin'
+      * 'ภาษา  \n   \n   \n   latin'
+        'ภาษา latin'
+      * 'latin\nภาษา'
+        'latin ภาษา'
+      * 'latin   \nภาษา'
+        'latin ภาษา'
+      * 'latin\n        ภาษา'
+        'latin ภาษา'
+      * 'latin   \n     ภาษา'
+        'latin ภาษา'
+      * 'latin\n\n\nภาษา'
+        'latin ภาษา'
+      * 'latin  \n   \n   \n   ภาษา'
+        'latin ภาษา'
+  thai-zwsp:
+    title: 'Thai with ZWSP before line break'
+    source: 'https://github.com/w3c/csswg-test/blob/master/css-text-3/white-space/seg-break-transformation-016.html'
+    cases:
+      * 'ภาษา\u200B\nไทย'
+        'ภาษา\u200Bไทย'
+      * 'ภาษา\u200B   \nไทย'
+        'ภาษา\u200Bไทย'
+      * 'ภาษา\u200B\n        ไทย'
+        'ภาษา\u200Bไทย'
+      * 'ภาษา\u200B   \n     ไทย'
+        'ภาษา\u200Bไทย'
+      * 'ภาษา\u200B\n\n\nไทย'
+        'ภาษา\u200Bไทย'
+      * 'ภาษา\u200B  \n   \n   \n   ไทย'
+        'ภาษา\u200Bไทย'
+  zwsp-thai:
+    title: 'Thai with ZWSP after line break'
+    source: 'https://github.com/w3c/csswg-test/blob/master/css-text-3/white-space/seg-break-transformation-016.html'
+    cases:
+      * 'ภาษา\n\u200Bไทย'
+        'ภาษา\u200Bไทย'
+      * 'ภาษา   \n\u200Bไทย'
+        'ภาษา\u200Bไทย'
+      * 'ภาษา\n        \u200Bไทย'
+        'ภาษา\u200Bไทย'
+      * 'ภาษา   \n     \u200Bไทย'
+        'ภาษา\u200Bไทย'
+      * 'ภาษา\n\n\n\u200Bไทย'
+        'ภาษา\u200Bไทย'
+      * 'ภาษา  \n   \n   \n   \u200Bไทย'
+        'ภาษา\u200Bไทย'
   white-space:
     title: 'White space collapse'
     source: 'https://github.com/w3c/csswg-test/blob/master/css-text-3/white-space/white-space-collapse-000.html'
@@ -315,6 +391,14 @@ describe 'Basic Usage' ->
       for [before, after] in test-suite.fullwidth-and-halfwidth.cases
         expect asianbreak before .to.equal after
 
+    It 'converts breakline(s) after zero-width space character into nothing' ->
+      for [before, after] in test-suite.thai-zwsp.cases
+        expect asianbreak before .to.equal after
+
+    It 'converts breakline(s) before zero-width space character into nothing' ->
+      for [before, after] in test-suite.zwsp-thai.cases
+        expect asianbreak before .to.equal after
+
     It 'keeps non-CJK segment break transformation rules untouched' ->
       for [test, _] in test-suite.basic.cases
         expect asianbreak test .to.equal test
@@ -341,6 +425,10 @@ describe 'Basic Usage' ->
 
     It 'keeps segment break between halfwidth hangul jamo charanters untouched' ->
       for [test, _] in test-suite.halfwidth-jamo.cases
+        expect asianbreak test .to.equal test
+
+    It 'keeps segment break between thai charanters untouched' ->
+      for [test, _] in test-suite.thai.cases
         expect asianbreak test .to.equal test
 
     It 'keeps whitespaces among line untouched' ->
