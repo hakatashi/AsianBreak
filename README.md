@@ -4,8 +4,14 @@
 
 [travis-image]: https://travis-ci.org/hakatashi/AsianBreak.svg?branch=master
 [travis-url]: https://travis-ci.org/hakatashi/AsianBreak
+[gemnasium-image]: https://gemnasium.com/hakatashi/AsianBreak.svg
+[gemnasium-url]: https://gemnasium.com/hakatashi/AsianBreak
+[npm-image]: https://img.shields.io/npm/v/asianbreak.svg
+[npm-url]: http://npmjs.com/package/asianbreak
 
 [![Build Status][travis-image]][travis-url]
+[![Dependency Status][gemnasium-image]][gemnasium-url]
+[![npm version][npm-image]][npm-url]
 
 ```js
 const asianbreak = require('asianbreak');
