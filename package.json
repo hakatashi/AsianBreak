@@ -42,7 +42,6 @@
   "dependencies": {
     "core-js": "^1.2.6",
     "eastasianwidth": "^0.1.1",
-    "prelude-ls": "^1.1.2",
     "xtend": "^4.0.1"
   }
 }

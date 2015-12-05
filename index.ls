@@ -1,5 +1,4 @@
 require! {
-  'prelude-ls': {id}
   xtend: extend
   eastasianwidth: {east-asian-width}
   'core-js/library/fn/string/code-point-at'
