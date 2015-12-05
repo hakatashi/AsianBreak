@@ -147,6 +147,12 @@ module.exports = (texts, options = {}) ->
 
     new-segments.push spans.join ''
 
+  # Implement "Phase II" of the spec
+  # https://drafts.csswg.org/css-text-3/#white-space-phase-2
+
+  # Note: head/tailing white spaces can be unconditionally removed.
+  # Spec says: "A sequence of collapsible spaces at the beginning of a line is removed."
+
   unless options.collapse-head
     # Append first processed segment to the last segment of heading-white-space-segments
     heading-white-space-segments[* - 1] += new-segments.shift!
