@@ -27,6 +27,22 @@ last-char = (string) ->
 # Just sugar it
 is-one-of = (element, list) -> list.indexOf element isnt -1
 
+# I'm new to hangul characters and not sure where they locale in unicode...
+# I implemented the method according to this blog post:
+# http://www.programminginkorean.com/programming/hangul-in-unicode/
+# ...and added missing halfwidth hangul letters. Please help me confirming this!
+is-hangul = (char) ->
+  code-point = code-point-at char, 0
+
+  return 0x1100 <= code-point <= 0x11FF
+  or 0x3130 <= code-point <= 0x318F
+  or 0xA960 <= code-point <= 0xA97F
+  or 0xAC00 <= code-point <= 0xD7A3
+  or 0xD7B0 <= code-point <= 0xD7FF
+  or 0xFFA0 <= code-point <= 0xFFDF
+
+isnt-hangul = (not) << is-hangul
+
 module.exports = (texts, options = {}) ->
   # Fill up default options
   default-options = {
@@ -121,6 +137,7 @@ module.exports = (texts, options = {}) ->
       # Skip if span is only with space and tab
       break if not options.collapse-inline-white-space and is-monoline-space
 
+      # FIXME: prev-span must be prev-element
       prev-span = spans[span-index - 1]
       next-span = spans[span-index + 1]
 
@@ -140,10 +157,45 @@ module.exports = (texts, options = {}) ->
 
         # step 1 and 2 of the spec are nonsense here.
 
-        if prev-char |> is-one-of [' ' '\t' '\n' '\r']
+        if prev-char in [' ' '\t' '\n' '\r']
           spans[span-index] = ''
         else
           spans[span-index] = ' '
+
+      # If this is multiline white space
+      else
+        # From spec:
+        # If the character immediately before or immediately after the segment break is
+        # the zero-width space character (U+200B), then the break is removed, leaving
+        # behind the zero-width space.
+
+        if '\u200B' in [prev-char, next-char]
+
+          unless options.remove-zwsp
+            spans[span-index] = ''
+          else
+            ...
+
+        # From spec:
+        # Otherwise, if the East Asian Width property [UAX11] of both the character
+        # before and after the line feed is F, W, or H (not A), and neither side is
+        # Hangul, then the segment break is removed.
+        else if prev-width in <[F W H]>
+        and next-width in <[F W H]>
+        and (prev-char |> isnt-hangul)
+        and (next-char |> isnt-hangul)
+
+          spans[span-index] = ''
+
+        # From spec:
+        # Otherwise, the segment break is converted to a space (U+0020).
+        else if options.collapse-all-break
+
+          spans[span-index] = ' '
+
+        else
+
+          # nop
 
     new-segments.push spans.join ''
 
