@@ -7,11 +7,16 @@
 [gemnasium-image]: https://gemnasium.com/hakatashi/AsianBreak.svg
 [gemnasium-url]: https://gemnasium.com/hakatashi/AsianBreak
 [npm-image]: https://img.shields.io/npm/v/asianbreak.svg
+[nodeico-image]: https://nodei.co/npm/asianbreak.png?downloads=true
 [npm-url]: http://npmjs.com/package/asianbreak
+[license-image]: https://img.shields.io/npm/l/asianbreak.svg
+
+[![npm status][nodeico-image]][npm-url]
 
 [![Build Status][travis-image]][travis-url]
 [![Dependency Status][gemnasium-image]][gemnasium-url]
 [![npm version][npm-image]][npm-url]
+[![LICENSE][license-image]][npm-url]
 
 ```js
 const asianbreak = require('asianbreak');
