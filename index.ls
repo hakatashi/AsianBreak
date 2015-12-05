@@ -16,6 +16,9 @@ first-char = (string) ->
   else code-point |> from-code-point
 
 last-char = (string) ->
+  return undefined if string.length is 0
+  return string[0] if string.length is 1
+
   code-point = code-point-at string, string.length - 2
 
   return if code-point |> isNaN
@@ -23,9 +26,6 @@ last-char = (string) ->
   else if code-point >= 0x10000
   then string.slice -2
   else string.slice -1
-
-# Just sugar it
-is-one-of = (element, list) -> list.indexOf element isnt -1
 
 # I'm new to hangul characters and not sure where they locale in unicode...
 # I implemented the method according to this blog post:
