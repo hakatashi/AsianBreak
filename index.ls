@@ -116,9 +116,6 @@ module.exports = (texts, options = {}) ->
   new-segments = []
 
   for segment, segment-index in segments
-    prev-segment = segments[segment-index - 1] ? null
-    next-segment = segments[segment-index + 1] ? null
-
     prev-char-before-segment = null
     for index from segment-index - 1 to 0 by -1
       if segments[index] |> last-char
