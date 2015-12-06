@@ -119,6 +119,18 @@ module.exports = (texts, options = {}) ->
     prev-segment = segments[segment-index - 1] ? null
     next-segment = segments[segment-index + 1] ? null
 
+    prev-char-before-segment = null
+    for index from segment-index - 1 to 0 by -1
+      if segments[index] |> last-char
+        prev-char-before-segment = segments[index] |> last-char
+        break
+
+    next-char-after-segment = null
+    for index from segment-index + 1 til segments.length
+      if segments[index] |> first-char
+        next-char-after-segment = segments[index] |> first-char
+        break
+
     /*
       Split segment by series of white spaces
 
@@ -136,16 +148,15 @@ module.exports = (texts, options = {}) ->
       # Skip if span is only with space and tab
       break if not options.collapse-inline-white-space and is-monoline-space
 
-      # FIXME: prev-span must be prev-element
       prev-span = spans[span-index - 1]
       next-span = spans[span-index + 1]
 
-      prev-char = (prev-span |> last-char) ? if prev-segment?
-        then (prev-segment |> last-char) ? null
-        else null
-      next-char = (next-span |> first-char) ? if next-segment?
-        then (next-segment |> first-char) ? null
-        else null
+      prev-char = if prev-span.length isnt 0
+        then (prev-span |> last-char) ? null
+        else prev-char-before-segment ? null
+      next-char = if next-span.length isnt 0
+        then (next-span |> first-char) ? null
+        else next-char-after-segment ? null
 
       prev-width = east-asian-width prev-char if prev-char?
       next-width = east-asian-width next-char if next-char?
