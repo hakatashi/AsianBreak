@@ -209,12 +209,20 @@ module.exports = (texts, options = {}) ->
     heading-white-space-segments[* - 1] += new-segments.shift!
 
     new-segments = heading-white-space-segments.concat new-segments
+  else
+    # Collapse heading whitespaces: pad empty segments left to the new-segments
+    pad-left-segments = [''] * (heading-white-space-segments.length - 1)
+    new-segments = pad-left-segments.concat new-segments
 
   unless options.collapse-tail
     # Append the first segment of last-white-space-segments to the last processed segment
     new-segments[* - 1] += tailing-white-space-segments.shift!
 
     new-segments = new-segments.concat tailing-white-space-segments
+  else
+    # Collapse heading whitespaces: pad empty segments left to the new-segments
+    pad-right-segments = [''] * (tailing-white-space-segments.length - 1)
+    new-segments = new-segments.concat pad-right-segments
 
   if typeof! texts is \String
     return new-segments.0
