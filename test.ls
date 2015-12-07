@@ -325,6 +325,13 @@ test-suite =
       * '    ﾊﾝ   \t         ｶｸ    '
         'ﾊﾝ   \t         ｶｸ'
         'ﾊﾝ ｶｸ'
+  surrogate-pair:
+    title: 'Surrogate pairs'
+    cases:
+      * '𠮷\n野\n家'
+        '𠮷野家'
+      * '🉐\n🉐\n🉐'
+        '🉐🉐🉐'
   head:
     title: 'Wide characters with heading whitespaces'
     cases:
@@ -508,6 +515,10 @@ describe 'Basic Usage' ->
 
     It 'keeps heading and tailing whitespaces and segment breaks untouched' ->
       for [before, after, _] in test-suite.head-and-tail.cases
+        expect asianbreak before .to.equal after
+
+    It 'is aware of surrogate pair characters' ->
+      for [before, after] in test-suite.surrogate-pair.cases
         expect asianbreak before .to.equal after
 
   describe 'Multiple text' ->
