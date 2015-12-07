@@ -116,6 +116,7 @@ module.exports = (texts, options = {}) ->
   new-segments = []
 
   for segment, segment-index in segments
+    # FIXME: This loop is not necessery. It can avoid O(N^2)
     prev-char-before-segment = null
     for index from segment-index - 1 to 0 by -1
       if segments[index] |> last-char
@@ -205,6 +206,33 @@ module.exports = (texts, options = {}) ->
           # nop
 
     new-segments.push spans.join ''
+
+  # Collapse spaces following another space character
+  # From spec:
+  # Any space immediately following another collapsible space—even one outside the boundary of
+  # the inline containing that space, provided both spaces are within the same inline formatting
+  # context—is collapsed to have zero advance width.
+  if options.collapse-inline-white-space
+    for segment, segment-index in new-segments
+      # FIXME: This loop is not necessery. It can avoid O(N^2)
+      prev-char-before-segment = null
+      for index from segment-index - 1 to 0 by -1
+        if new-segments[index] |> last-char
+          prev-char-before-segment = new-segments[index] |> last-char
+          break
+
+      new-segment = ''
+
+      # We don't have to consider surrogate pairs here
+      for char in segment
+        if char is ' '
+          prev-char = new-segment[* - 1] ? prev-char-before-segment
+          if prev-char isnt ' '
+            new-segment += char
+        else
+          new-segment += char
+
+      new-segments[segment-index] = new-segment
 
   # Implement "Phase II" of the spec
   # https://drafts.csswg.org/css-text-3/#white-space-phase-2
