@@ -379,6 +379,51 @@ test-suite =
       * '  \n   \n   \n   日本語  \n   \n   \n   中国话  \n   \n   '
         '  \n   \n   \n   日本語中国话  \n   \n   '
         '日本語中国话'
+  head-and-tail-multitext:
+    title: 'Wide characters with heading and tailing whitespaces for multiple texts'
+    cases:
+      * ['    ' '日本語' '    ']
+        ['    ' '日本語' '    ']
+        ['' '日本語' '']
+      * ['' '    日本語    ' '']
+        ['' '    日本語    ' '']
+        ['' '日本語' '']
+      * ['    ' '    日本語    ' '    ']
+        ['    ' '    日本語    ' '    ']
+        ['' '日本語' '']
+      * ['   ' '    日本語\t\t\n' '\t\t\n']
+        ['   ' '    日本語\t\t\n' '\t\t\n']
+        ['' '日本語' '']
+      * ['\n\n\n\n' '\n\n\n\n日本語\n\n\n\n' '\n\n\n\n']
+        ['\n\n\n\n' '\n\n\n\n日本語\n\n\n\n' '\n\n\n\n']
+        ['' '日本語' '']
+      * ['\n\n\n' '日本語\n\n\n中国话' '\n\n\n']
+        ['\n\n\n' '日本語中国话' '\n\n\n']
+        ['' '日本語中国话' '']
+      * ['\n\n\n' '\n\n\n日本語\n\n\n中国话\n\n\n' '\n\n\n']
+        ['\n\n\n' '\n\n\n日本語中国话\n\n\n' '\n\n\n']
+        ['' '日本語中国话' '']
+  breakline-over-texts:
+    title: 'Segment break(s) leans over multiple texts'
+    cases:
+      * ['日本語\n' '中国话']
+        ['日本語' '中国话']
+      * ['日本語' '\n中国话']
+        ['日本語' '中国话']
+      * ['日本語\t\t\n\t\t\n' '中国话']
+        ['日本語' '中国话']
+      * ['日本語' '\t\t\n\t\t\n中国话']
+        ['日本語' '中国话']
+      * ['日本語\n\n' '' '中国话']
+        ['日本語' '' '中国话']
+      * ['日本語' '\n\n' '中国话']
+        ['日本語' '' '中国话']
+      * ['日本語' '' '\n\n中国话']
+        ['日本語' '' '中国话']
+      * ['日本語\n\n' '' '' '中国话']
+        ['日本語' '' '' '中国话']
+      * ['日本語\n' '\n中国话']
+        ['日本語\n' '\n中国话'] # This spec is questionable for me
 
 # `it` is reserved in livescript
 It = global.it
@@ -462,5 +507,18 @@ describe 'Basic Usage' ->
         expect asianbreak before .to.equal after
 
     It 'keeps heading and tailing whitespaces and segment breaks untouched' ->
-      for [before, after, _] in test-suite.tail.cases
+      for [before, after, _] in test-suite.head-and-tail.cases
         expect asianbreak before .to.equal after
+
+  describe 'Multiple text' ->
+    It 'keeps everything when no whitespace is proveded' ->
+      expect asianbreak ['hi' 'over' 'there'] .to.deep.equal ['hi' 'over' 'there']
+      expect asianbreak ['こんにちは' '世界'] .to.deep.equal ['こんにちは' '世界']
+
+    It 'keeps heading and tailing whitespaces and segment breaks untouched' ->
+      for [before, after, _] in test-suite.head-and-tail-multitext.cases
+        expect asianbreak before .to.deep.equal after
+
+    It 'correctly handles breaklines between texts' ->
+      for [before, after] in test-suite.breakline-over-texts.cases
+        expect asianbreak before .to.deep.equal after
