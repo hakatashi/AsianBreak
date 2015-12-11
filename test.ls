@@ -531,6 +531,9 @@ describe 'Basic Usage' ->
         expect asianbreak before .to.equal after
 
   describe 'Multiple text' ->
+    It 'returns empty list when empty list is provided' ->
+      expect asianbreak [] .to.deep.equal []
+
     It 'keeps everything when no whitespace is proveded' ->
       expect asianbreak ['hi' 'over' 'there'] .to.deep.equal ['hi' 'over' 'there']
       expect asianbreak ['こんにちは' '世界'] .to.deep.equal ['こんにちは' '世界']
