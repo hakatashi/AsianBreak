@@ -40,46 +40,48 @@ This module exposes single `asianbreak(texts[, options])` function.
 
 * Type: String[] | String
 
-An array of string which supporse to constitute [Inline Formatting Context](http://www.w3.org/TR/CSS21/visuren.html#inline-formatting) of CSS2.1.
+An array of string which supporse to constitute
+[Inline Formatting Context](http://www.w3.org/TR/CSS21/visuren.html#inline-formatting) of CSS2.1.
 
 For this example:
 
 ```html
 <p>
-    日本語は、<ruby>
-        <rb>分</rb><rb>かち</rb><rb>書</rb><rb>き</rb>
-        <rp>(</rp><rt>わ</rt><rt>かち</rt><rt>が</rt><rt>き</rt><rp>)</rp>
-    </ruby>を用いない。
+    日本語は、
+    <ruby><rb>漢</rb><rb>字</rb><rp>(</rp><rt>かん</rt><rt>じ</rt><rp>)</rp></ruby>
+    を使用する。
 </p>
 ```
 
-only `<p>` creates inline formatting context and `<rp>` and `<rt>` is supporsed to be removed from inline context tree (in modern browsers), and `texts` should be:
+only `<p>` creates inline formatting context and `<rp>` and `<rt>` is supporsed to be removed
+from inline context tree (in modern browsers), and `texts` should be:
 
 ```js
-const texts = ['\n    日本語は、', '\n        ', '分', 'かち', '書', 'き', '\n        ', '\n    ', 'を用いない。\n'];
+const texts = ['\n    日本語は、\n    ', '', '漢', '', '字', '', '', '\n    を使用する。\n'];
 ```
 
 then you'll get:
 
 ```js
 const result = asianbreak(texts);
-console.log(result); // ['\n    日本語は、', '', '分', 'かち', '書', 'き', '', '', 'を用いない。\n'];
+console.log(result); // ['\n    日本語は、', '', '漢', '', '字', '', '', 'を使用する。\n'];
 ```
 
 If you restored it to original HTML, it should be:
 
 ```html
 <p>
-    日本語は、<ruby><rb>分</rb><rb>かち</rb><rb>書</rb><rb>き</rb><rp>(</rp><rt>わ</rt><rt>かち</rt><rt>が</rt><rt>き</rt><rp>)</rp></ruby>を用いない。
+    日本語は、<ruby><rb>漢</rb><rb>字</rb><rp>(</rp><rt>かん</rt><rt>じ</rt><rp>)</rp></ruby>を使用する。
 </p>
 ```
 
 How great deed is this!
 
-If a string is supplied, it assume that context is constituted by single segment, and returns transformed segment as string.
+If a string is supplied, it assume that context is constituted by single segment,
+and returns transformed segment as string.
 
 ### options
 
 * Type: Object
 
-**Not Implemented**
+**Unimplemented**
