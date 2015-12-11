@@ -1,6 +1,6 @@
 {
   "name": "asianbreak",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Line Break for East Asian People",
   "main": "index.js",
   "files": [
