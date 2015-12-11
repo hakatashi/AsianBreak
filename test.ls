@@ -335,6 +335,9 @@ test-suite =
   head:
     title: 'Wide characters with heading whitespaces'
     cases:
+      * '    '
+        '    '
+        ''
       * '    日本語'
         '    日本語'
         '日本語'
@@ -353,6 +356,9 @@ test-suite =
   tail:
     title: 'Wide characters with tailing whitespaces'
     cases:
+      * '    '
+        '    '
+        ''
       * '日本語    '
         '日本語    '
         '日本語'
@@ -371,6 +377,9 @@ test-suite =
   head-and-tail:
     title: 'Wide characters with heading and tailing whitespaces'
     cases:
+      * '    '
+        '    '
+        ''
       * '    日本語    '
         '    日本語    '
         '日本語'
