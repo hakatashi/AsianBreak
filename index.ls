@@ -65,6 +65,7 @@ module.exports = (texts, options = {}) ->
 
   heading-white-space-segments = []
   new-segments = []
+  pushed-down-remainings = false
 
   # The last element of heading-white-space-segments is corresponding to the
   # first element of new-segments. It may be empty string.
@@ -80,12 +81,19 @@ module.exports = (texts, options = {}) ->
       new-segments.push segment.slice heading-white-space.length
       Array::push.apply new-segments, segments.slice segment-index + 1
 
+      pushed-down-remainings = true
       break
+
+  # If pushing down was not trigered, input was only with whitespaces.
+  # Then we have to push empty string to new-segments.
+  unless pushed-down-remainings
+    new-segments.push ''
 
   segments = new-segments
 
   tailing-white-space-segments = []
   new-segments = []
+  pushed-down-remainings = false
 
   # The first element of tailing-white-space-segments is corresponding to the
   # last element of new-segments. It may be empty string.
@@ -104,7 +112,13 @@ module.exports = (texts, options = {}) ->
         new-segments.unshift segment.slice 0, -tailing-white-space.length
       Array::unshift.apply new-segments, segments.slice 0, segment-index
 
+      pushed-down-remainings = true
       break
+
+  # If pushing down was not trigered, input was only with whitespaces.
+  # Then we have to unshift empty string to new-segments.
+  unless pushed-down-remainings
+    new-segments.unshift ''
 
   segments = new-segments
 
