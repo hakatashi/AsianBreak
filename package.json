@@ -36,13 +36,13 @@
   "devDependencies": {
     "chai": "^3.4.1",
     "gulp": "^3.9.0",
-    "gulp-livescript": "^2.4.0",
+    "gulp-livescript": "^3.0.0",
     "gulp-mocha": "^2.2.0",
     "gulp-rename": "^1.2.2",
     "livescript": "^1.4.0"
   },
   "dependencies": {
-    "core-js": "^1.2.6",
+    "core-js": "^2.0.0",
     "eastasianwidth": "^0.1.1",
     "xtend": "^4.0.1"
   }
