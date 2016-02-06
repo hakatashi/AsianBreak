@@ -395,6 +395,18 @@ test-suite =
       * '  \n   \n   \n   日本語  \n   \n   \n   中国话  \n   \n   '
         '  \n   \n   \n   日本語中国话  \n   \n   '
         '日本語中国话'
+  inline:
+    title: 'Inline whitespaces'
+    cases:
+      * '日本語   中国话'
+        '日本語   中国话'
+        '日本語 中国话'
+      * '日本語   中国话\n日本語'
+        '日本語   中国话日本語'
+        '日本語 中国话日本語'
+      * '   日本語   中国话   '
+        '   日本語   中国话   '
+        '   日本語 中国话   '
   head-and-tail-multitext:
     title: 'Wide characters with heading and tailing whitespaces for multiple texts'
     cases:
@@ -524,6 +536,10 @@ describe 'Basic Usage' ->
 
     It 'keeps heading and tailing whitespaces and segment breaks untouched' ->
       for [before, after, _] in test-suite.head-and-tail.cases
+        expect asianbreak before .to.equal after
+
+    It 'preserves inline whitespaces as untouched' ->
+      for [before, after, _] in test-suite.inline.cases
         expect asianbreak before .to.equal after
 
     It 'is aware of surrogate pair characters' ->
