@@ -158,7 +158,7 @@ module.exports = (texts, options = {}) ->
       is-monoline-space = not span.match /[\r\n]/
 
       # Skip if span is only with space and tab
-      break if not options.collapse-inline-white-space and is-monoline-space
+      continue if not options.collapse-inline-white-space and is-monoline-space
 
       prev-span = spans[span-index - 1]
       next-span = spans[span-index + 1]
