@@ -34,7 +34,6 @@
   },
   "homepage": "https://github.com/hakatashi/AsianBreak#readme",
   "devDependencies": {
-    "chai": "^3.4.1",
     "gulp": "^3.9.0",
     "gulp-livescript": "^3.0.0",
     "gulp-rename": "^1.2.2",
