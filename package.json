@@ -6,8 +6,8 @@
     "*.js"
   ],
   "scripts": {
-    "test": "gulp test",
-    "build": "gulp",
+    "test": "gulp build && intern-client config=tests/intern",
+    "build": "gulp build",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
