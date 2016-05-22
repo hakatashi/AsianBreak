@@ -9,4 +9,4 @@ gulp.task \build ->
   .pipe gulp-livescript!
   .pipe gulp.dest \.
 
-gulp.task \default, [\test]
+gulp.task \default, [\build]
