@@ -45,4 +45,4 @@ define do
   reporters:
     * 'Pretty'
     * id: 'lcov'
-      filename: 'coverage.lcov'
+      filename: 'lcov.info'
