@@ -44,5 +44,5 @@ define do
 
   reporters:
     * 'Pretty'
-    * id: 'lcov'
+    * id: 'Lcov'
       filename: 'lcov.info'
