@@ -36,7 +36,7 @@ define do
         location: '.'
       ...
 
-  suites: []
+  suites: <[tests/test]>
 
   functionalSuites: []
 
