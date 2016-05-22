@@ -41,3 +41,8 @@ define do
   functional-suites: []
 
   exclude-instrumentation: /^(?:tests|node_modules)\//
+
+  reporters:
+    * 'Pretty'
+    * id: 'lcov'
+      filename: 'coverage.lcov'
