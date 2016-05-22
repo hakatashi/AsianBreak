@@ -4,6 +4,8 @@
 
 [travis-image]: https://travis-ci.org/hakatashi/AsianBreak.svg?branch=master
 [travis-url]: https://travis-ci.org/hakatashi/AsianBreak
+[coveralls-image]: https://coveralls.io/repos/github/hakatashi/AsianBreak/badge.svg?branch=master
+[coveralls-url]: https://coveralls.io/github/hakatashi/AsianBreak?branch=master
 [gemnasium-image]: https://gemnasium.com/hakatashi/AsianBreak.svg
 [gemnasium-url]: https://gemnasium.com/hakatashi/AsianBreak
 [npm-image]: https://img.shields.io/npm/v/asianbreak.svg
@@ -14,6 +16,7 @@
 [![npm status][nodeico-image]][npm-url]
 
 [![Build Status][travis-image]][travis-url]
+[![Coverage Status][coveralls-image]][coveralls-url]
 [![Dependency Status][gemnasium-image]][gemnasium-url]
 [![npm version][npm-image]][npm-url]
 [![LICENSE][license-image]][npm-url]

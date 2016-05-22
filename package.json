@@ -6,8 +6,9 @@
     "*.js"
   ],
   "scripts": {
-    "test": "gulp test",
-    "build": "gulp",
+    "test": "gulp build && intern-client config=tests/intern",
+    "build": "gulp build",
+    "coveralls": "cat lcov.info | coveralls",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
@@ -34,11 +35,11 @@
   },
   "homepage": "https://github.com/hakatashi/AsianBreak#readme",
   "devDependencies": {
-    "chai": "^3.4.1",
+    "coveralls": "^2.11.9",
     "gulp": "^3.9.0",
     "gulp-livescript": "^3.0.0",
-    "gulp-mocha": "^2.2.0",
     "gulp-rename": "^1.2.2",
+    "intern": "^3.2.1",
     "livescript": "^1.4.0",
     "semantic-release": "^4.3.5"
   },

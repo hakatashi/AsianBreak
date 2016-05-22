@@ -83,3 +83,6 @@ $RECYCLE.BIN/
 
 # Build Files
 *.js
+
+# Coverage file
+lcov.info

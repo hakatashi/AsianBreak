@@ -1,8 +1,3 @@
-require! {
-  './': asianbreak
-  chai: {expect}
-}
-
 /*!
  * W3C Test Suites Destribution Notice
  *
@@ -453,8 +448,11 @@ test-suite =
       * ['日本語\n' '\n中国话']
         ['日本語\n' '\n中国话'] # This spec is questionable for me
 
-# `it` is reserved in livescript
-It = global.it
+require <- define
+
+{describe, it: It} = require 'intern!bdd'
+expect = require 'intern/chai!expect'
+asianbreak = require 'intern/dojo/node!../index'
 
 describe 'Basic Usage' ->
   describe 'Single text' ->
