@@ -8,4 +8,4 @@ define do
   reporters:
     * 'Pretty'
     * id: 'Lcov'
-      filename: 'lcov.info'
+      filename: 'lcov-raw.info'

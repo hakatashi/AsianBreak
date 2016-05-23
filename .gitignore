@@ -85,6 +85,7 @@ $RECYCLE.BIN/
 *.js
 
 # Coverage file
+lcov-raw.info
 lcov.info
 
 # Sourcemaps
