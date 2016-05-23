@@ -8,7 +8,7 @@
   "scripts": {
     "test": "gulp build && intern-client config=tests/intern",
     "build": "gulp build",
-    "coveralls": "cat lcov.info | coveralls",
+    "coveralls": "gulp transform-lcov && cat lcov.info | coveralls",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
