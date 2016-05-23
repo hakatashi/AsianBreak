@@ -86,3 +86,6 @@ $RECYCLE.BIN/
 
 # Coverage file
 lcov.info
+
+# Sourcemaps
+*.map
