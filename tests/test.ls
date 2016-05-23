@@ -559,3 +559,17 @@ describe 'Basic Usage' ->
     It 'correctly handles breaklines between texts' ->
       for [before, after] in test-suite.breakline-over-texts.cases
         expect asianbreak before .to.deep.equal after
+
+describe 'options' ->
+  describe 'collapseInlineWhiteSpace option' ->
+    It 'converts breakline(s) between wide characters into nothing normally' ->
+      for [before, after] in test-suite.wide.cases
+        expect asianbreak before, {+collapse-inline-white-space} .to.equal after
+
+    It 'collapses whitespaces among line into a space' ->
+      for [_, before, after] in test-suite.white-space.cases
+        expect asianbreak before, {+collapse-inline-white-space} .to.equal after
+
+    It 'only collapses inline whitespaces into the single space' ->
+      for [before, _, after] in test-suite.inline.cases
+        expect asianbreak before, {+collapse-inline-white-space} .to.equal after
