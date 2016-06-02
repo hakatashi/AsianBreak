@@ -452,7 +452,15 @@ require <- define
 
 {describe, it: It} = require 'intern!bdd'
 expect = require 'intern/chai!expect'
-asianbreak = require 'intern/dojo/node!../index'
+
+asianbreak = require '
+  intern/dojo/has!host-node?
+  intern/dojo/node!../index:
+  intern/order!browser.js
+'
+
+if typeof! asianbreak isnt \Function
+  asianbreak = window.asianbreak
 
 describe 'Basic Usage' ->
   describe 'Single text' ->
