@@ -6,7 +6,7 @@
     "*.js"
   ],
   "scripts": {
-    "test": "gulp build && intern-client config=test/intern",
+    "test": "gulp build && intern-client config=test/intern-node",
     "build": "gulp build",
     "coveralls": "gulp transform-lcov && cat lcov.info | coveralls",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
