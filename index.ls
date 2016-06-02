@@ -1,13 +1,10 @@
 require! {
   eastasianwidth: {east-asian-width}
+  'core-js/library/fn/object/assign': extend
   'core-js/library/fn/string/code-point-at'
   'core-js/library/fn/string/from-code-point'
-  util
   assert
 }
-
-# Hello next generation extends!
-extend = Object.assign or util._extend
 
 # The surrogate-pair awared first/last character extraction
 first-char = (string) ->
