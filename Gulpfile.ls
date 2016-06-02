@@ -7,7 +7,7 @@ require! {
 }
 
 gulp.task \build ->
-  gulp.src <[*.ls tests/*.ls !Gulpfile.ls]> base: \.
+  gulp.src <[*.ls test/*.ls !Gulpfile.ls]> base: \.
   .pipe gulp-sourcemaps.init!
   .pipe gulp-livescript!
   .pipe gulp-sourcemaps.write \.

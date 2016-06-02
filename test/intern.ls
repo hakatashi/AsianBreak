@@ -1,9 +1,9 @@
 define do
-  suites: <[tests/test]>
+  suites: <[test/test]>
 
   functional-suites: []
 
-  exclude-instrumentation: /^(?:tests|node_modules)\//
+  exclude-instrumentation: /^(?:test|node_modules)\//
 
   reporters:
     * 'Pretty'
