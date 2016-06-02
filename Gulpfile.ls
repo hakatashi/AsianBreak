@@ -8,7 +8,7 @@ require! {
   \lcov-sourcemap
 }
 
-gulp.task \build ->
+gulp.task \livescript ->
   gulp.src <[*.ls test/*.ls !browser.ls !Gulpfile.ls]> base: \.
   .pipe gulp-sourcemaps.init!
   .pipe gulp-livescript!
@@ -29,4 +29,6 @@ gulp.task \transform-lcov ->
     \.
     \lcov.info
 
-gulp.task \default, [\build]
+gulp.task \build, <[livescript browserify]>
+
+gulp.task \default, <[build]>
