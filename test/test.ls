@@ -556,7 +556,7 @@ describe 'Basic Usage' ->
     It 'returns empty list when empty list is provided' ->
       expect asianbreak [] .to.deep.equal []
 
-    It 'keeps everything when no whitespace is proveded' ->
+    It 'keeps everything when no whitespace is provided' ->
       expect asianbreak ['hi' 'over' 'there'] .to.deep.equal ['hi' 'over' 'there']
       expect asianbreak ['こんにちは' '世界'] .to.deep.equal ['こんにちは' '世界']
 
