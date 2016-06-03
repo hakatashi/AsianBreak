@@ -375,20 +375,32 @@ test-suite =
       * '    '
         '    '
         ''
+        ''
+        ''
       * '    日本語    '
         '    日本語    '
+        '日本語    '
+        '    日本語'
         '日本語'
       * '    日本語\t\t\n\t\t'
         '    日本語\t\t\n\t\t'
+        '日本語\t\t\n\t\t'
+        '    日本語'
         '日本語'
       * '\t\t\n\t\t日本語\n\t\t\n\t'
         '\t\t\n\t\t日本語\n\t\t\n\t'
+        '日本語\n\t\t\n\t'
+        '\t\t\n\t\t日本語'
         '日本語'
       * '\n\n\n日本語\n\n\n中国话\n\n\n'
         '\n\n\n日本語中国话\n\n\n'
+        '日本語中国话\n\n\n'
+        '\n\n\n日本語中国话'
         '日本語中国话'
       * '  \n   \n   \n   日本語  \n   \n   \n   中国话  \n   \n   '
         '  \n   \n   \n   日本語中国话  \n   \n   '
+        '日本語中国话  \n   \n   '
+        '  \n   \n   \n   日本語中国话'
         '日本語中国话'
   inline:
     title: 'Inline whitespaces'
@@ -407,24 +419,38 @@ test-suite =
     cases:
       * ['    ' '日本語' '    ']
         ['    ' '日本語' '    ']
+        ['' '日本語' '    ']
+        ['    ' '日本語' '']
         ['' '日本語' '']
       * ['' '    日本語    ' '']
         ['' '    日本語    ' '']
+        ['' '日本語    ' '']
+        ['' '    日本語' '']
         ['' '日本語' '']
       * ['    ' '    日本語    ' '    ']
         ['    ' '    日本語    ' '    ']
+        ['' '日本語    ' '    ']
+        ['    ' '    日本語' '']
         ['' '日本語' '']
       * ['   ' '    日本語\t\t\n' '\t\t\n']
         ['   ' '    日本語\t\t\n' '\t\t\n']
+        ['' '日本語\t\t\n' '\t\t\n']
+        ['   ' '    日本語' '']
         ['' '日本語' '']
       * ['\n\n\n\n' '\n\n\n\n日本語\n\n\n\n' '\n\n\n\n']
         ['\n\n\n\n' '\n\n\n\n日本語\n\n\n\n' '\n\n\n\n']
+        ['' '日本語\n\n\n\n' '\n\n\n\n']
+        ['\n\n\n\n' '\n\n\n\n日本語' '']
         ['' '日本語' '']
       * ['\n\n\n' '日本語\n\n\n中国话' '\n\n\n']
         ['\n\n\n' '日本語中国话' '\n\n\n']
+        ['' '日本語中国话' '\n\n\n']
+        ['\n\n\n' '日本語中国话' '']
         ['' '日本語中国话' '']
       * ['\n\n\n' '\n\n\n日本語\n\n\n中国话\n\n\n' '\n\n\n']
         ['\n\n\n' '\n\n\n日本語中国话\n\n\n' '\n\n\n']
+        ['' '日本語中国话\n\n\n' '\n\n\n']
+        ['\n\n\n' '\n\n\n日本語中国话' '']
         ['' '日本語中国话' '']
   breakline-over-texts:
     title: 'Segment break(s) leans over multiple texts'
@@ -541,7 +567,7 @@ describe 'Basic Usage' ->
         expect asianbreak before .to.equal after
 
     It 'keeps heading and tailing whitespaces and segment breaks untouched' ->
-      for [before, after, _] in test-suite.head-and-tail.cases
+      for [before, after, _, _, _] in test-suite.head-and-tail.cases
         expect asianbreak before .to.equal after
 
     It 'preserves inline whitespaces as untouched' ->
@@ -581,3 +607,16 @@ describe 'options' ->
     It 'only collapses inline whitespaces into the single space' ->
       for [before, _, after] in test-suite.inline.cases
         expect asianbreak before, {+collapse-inline-white-space} .to.equal after
+
+  describe 'collapseHead option' ->
+    It 'collapses heading whitespaces into nothing' ->
+      for [before, _, after] in test-suite.head
+        expect asianbreak before, {+collapse-head} .to.equal after
+
+    It 'only collapses heading whitespaces' ->
+      for [before, _, after, _, _] in test-suite.head-and-tail
+        expect asianbreak before, {+collapse-head} .to.equal after
+
+    It 'works when multiple texts provided' ->
+      for [before, _, after, _, _] in test-suite.head-and-tail-multitext
+        expect asianbreak before, {+collapse-head} .to.deep.equal after
