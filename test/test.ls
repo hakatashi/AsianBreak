@@ -417,6 +417,11 @@ test-suite =
   head-and-tail-multitext:
     title: 'Wide characters with heading and tailing whitespaces for multiple texts'
     cases:
+      * ['    ' '    ' '    ']
+        ['    ' '    ' '    ']
+        ['' '' '']
+        ['' '' '']
+        ['' '' '']
       * ['    ' '日本語' '    ']
         ['    ' '日本語' '    ']
         ['' '日本語' '    ']
