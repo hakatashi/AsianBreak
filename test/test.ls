@@ -559,6 +559,10 @@ describe 'Basic Usage' ->
       for [test, _] in test-suite.thai.cases
         expect asianbreak test .to.equal test
 
+    It 'keeps segment break between thai charanter and latin character untouched' ->
+      for [test, _] in test-suite.thai-and-latin.cases
+        expect asianbreak test .to.equal test
+
     It 'keeps whitespaces among line untouched' ->
       for [_, test, _] in test-suite.white-space.cases
         expect asianbreak test .to.equal test
