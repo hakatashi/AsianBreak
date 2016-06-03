@@ -599,6 +599,19 @@ describe 'Basic Usage' ->
       for [before, after] in test-suite.breakline-over-texts.cases
         expect asianbreak before .to.deep.equal after
 
+  describe 'Unsupported input type' ->
+    It 'throws error when unsupported type of input is provided' ->
+      expect -> asianbreak!
+      .to.throw.error
+      expect -> asianbreak {}
+      .to.throw.error
+      expect -> asianbreak 42
+      .to.throw.error
+      expect -> asianbreak null
+      .to.throw.error
+      expect -> asianbreak new Error!
+      .to.throw.error
+
 describe 'options' ->
   describe 'collapseInlineWhiteSpace option' ->
     It 'converts breakline(s) between wide characters into nothing normally' ->
@@ -638,3 +651,12 @@ describe 'options' ->
     It 'works when multiple texts are provided' ->
       for [before, _, _, after, _] in test-suite.head-and-tail-multitext.cases
         expect asianbreak before, {+collapse-tail} .to.deep.equal after
+
+  describe 'collapseHead and collapseTail options together' ->
+    It 'collapses heading and tailing whitespaces' ->
+      for [before, _, _, _, after] in test-suite.head-and-tail.cases
+        expect asianbreak before, {+collapse-head, +collapse-tail} .to.equal after
+
+    It 'works when multiple texts are provided' ->
+      for [before, _, _, _, after] in test-suite.head-and-tail-multitext.cases
+        expect asianbreak before, {+collapse-head, +collapse-tail} .to.deep.equal after
