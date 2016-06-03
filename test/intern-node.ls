@@ -9,3 +9,5 @@ define do
     * 'Pretty'
     * id: 'Lcov'
       filename: 'lcov-raw.info'
+    * id: 'LcovHtml'
+      directory: 'coverage'

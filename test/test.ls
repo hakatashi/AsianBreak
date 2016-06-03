@@ -610,26 +610,26 @@ describe 'options' ->
 
   describe 'collapseHead option' ->
     It 'collapses heading whitespaces into nothing' ->
-      for [before, _, after] in test-suite.head
+      for [before, _, after] in test-suite.head.cases
         expect asianbreak before, {+collapse-head} .to.equal after
 
     It 'only collapses heading whitespaces' ->
-      for [before, _, after, _, _] in test-suite.head-and-tail
+      for [before, _, after, _, _] in test-suite.head-and-tail.cases
         expect asianbreak before, {+collapse-head} .to.equal after
 
     It 'works when multiple texts are provided' ->
-      for [before, _, after, _, _] in test-suite.head-and-tail-multitext
+      for [before, _, after, _, _] in test-suite.head-and-tail-multitext.cases
         expect asianbreak before, {+collapse-head} .to.deep.equal after
 
   describe 'collapseTail option' ->
     It 'collapses tailing whitespaces into nothing' ->
-      for [before, _, after] in test-suite.tail
+      for [before, _, after] in test-suite.tail.cases
         expect asianbreak before, {+collapse-tail} .to.equal after
 
     It 'only collapses tailing whitespaces' ->
-      for [before, _, _, after, _] in test-suite.head-and-tail
+      for [before, _, _, after, _] in test-suite.head-and-tail.cases
         expect asianbreak before, {+collapse-tail} .to.equal after
 
     It 'works when multiple texts are provided' ->
-      for [before, _, _, after, _] in test-suite.head-and-tail-multitext
+      for [before, _, _, after, _] in test-suite.head-and-tail-multitext.cases
         expect asianbreak before, {+collapse-tail} .to.deep.equal after
