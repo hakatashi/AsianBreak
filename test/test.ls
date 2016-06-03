@@ -617,6 +617,19 @@ describe 'options' ->
       for [before, _, after, _, _] in test-suite.head-and-tail
         expect asianbreak before, {+collapse-head} .to.equal after
 
-    It 'works when multiple texts provided' ->
+    It 'works when multiple texts are provided' ->
       for [before, _, after, _, _] in test-suite.head-and-tail-multitext
         expect asianbreak before, {+collapse-head} .to.deep.equal after
+
+  describe 'collapseTail option' ->
+    It 'collapses tailing whitespaces into nothing' ->
+      for [before, _, after] in test-suite.tail
+        expect asianbreak before, {+collapse-tail} .to.equal after
+
+    It 'only collapses tailing whitespaces' ->
+      for [before, _, _, after, _] in test-suite.head-and-tail
+        expect asianbreak before, {+collapse-tail} .to.equal after
+
+    It 'works when multiple texts are provided' ->
+      for [before, _, _, after, _] in test-suite.head-and-tail-multitext
+        expect asianbreak before, {+collapse-tail} .to.deep.equal after
