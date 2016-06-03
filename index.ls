@@ -254,7 +254,12 @@ module.exports = (texts, options = {}) ->
   # Note: head/tailing white spaces can be unconditionally removed.
   # Spec says: "A sequence of collapsible spaces at the beginning of a line is removed."
 
-  unless options.collapse-head
+  unless options.collapse-head or
+  # If text segments are entirely made with whitespaces, the whole segments are
+  # treated as the heading segments and there are no trailing segments.
+  # This statement will conditionally detect such cases and
+  # peacefully removes such whitespaces when collapseTail option is provided.
+  (options.collapse-tail and new-segments.length is 1 and new-segments.0 is '')
     # Append first processed segment to the last segment of heading-white-space-segments
     heading-white-space-segments[* - 1] += new-segments.shift!
 
