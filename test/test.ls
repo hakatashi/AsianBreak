@@ -664,3 +664,40 @@ describe 'options' ->
     It 'works when multiple texts are provided' ->
       for [before, _, _, _, after] in test-suite.head-and-tail-multitext.cases
         expect asianbreak before, {+collapse-head, +collapse-tail} .to.deep.equal after
+
+  describe 'collapseAllBreak option' ->
+    It 'collapses non-CJK segment break transformation rules into space' ->
+      for [before, after] in test-suite.basic.cases
+        expect asianbreak before, {+collapse-all-break} .to.equal after
+
+    It 'collapses segment break between CJK and non-CJK charanters into space' ->
+      for [before, after] in test-suite.wide-non-wide.cases
+        expect asianbreak before, {+collapse-all-break} .to.equal after
+
+    It 'collapses segment break between halfwidth and non-halfwidth charanters into space' ->
+      for [before, after] in test-suite.halfwidth-non-halfwidth.cases
+        expect asianbreak before, {+collapse-all-break} .to.equal after
+
+    It 'collapses segment break between fullwidth and non-fullwidth charanters into space' ->
+      for [before, after] in test-suite.fullwidth-non-fullwidth.cases
+        expect asianbreak before, {+collapse-all-break} .to.equal after
+
+    It 'collapses segment break between hangul charanters into space' ->
+      for [before, after] in test-suite.hangul.cases
+        expect asianbreak before, {+collapse-all-break} .to.equal after
+
+    It 'collapses segment break between hangul jamo charanters into space' ->
+      for [before, after] in test-suite.hangul-jamo.cases
+        expect asianbreak before, {+collapse-all-break} .to.equal after
+
+    It 'collapses segment break between halfwidth hangul jamo charanters into space' ->
+      for [before, after] in test-suite.halfwidth-jamo.cases
+        expect asianbreak before, {+collapse-all-break} .to.equal after
+
+    It 'collapses segment break between thai charanters into space' ->
+      for [before, after] in test-suite.thai.cases
+        expect asianbreak before, {+collapse-all-break} .to.equal after
+
+    It 'collapses segment break between thai charanter and latin character into space' ->
+      for [before, after] in test-suite.thai-and-latin.cases
+        expect asianbreak before, {+collapse-all-break} .to.equal after
