@@ -42,7 +42,7 @@
     "gulp-livescript": "^3.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-sourcemaps": "^2.1.1",
-    "intern": "^3.2.1",
+    "intern": "^3.3.2",
     "lcov-sourcemap": "^0.3.0",
     "livescript": "^1.4.0",
     "semantic-release": "^4.3.5",
