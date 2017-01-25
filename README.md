@@ -1,7 +1,5 @@
 # AsianBreak
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/hakatashi/AsianBreak.svg)](https://greenkeeper.io/)
-
 > Line Break for East Asian People
 
 [travis-image]: https://travis-ci.org/hakatashi/AsianBreak.svg?branch=master
@@ -22,6 +20,7 @@
 [![Dependency Status][gemnasium-image]][gemnasium-url]
 [![npm version][npm-image]][npm-url]
 [![LICENSE][license-image]][npm-url]
+[![Greenkeeper badge](https://badges.greenkeeper.io/hakatashi/AsianBreak.svg)](https://greenkeeper.io/)
 
 ```js
 const asianbreak = require('asianbreak');
