@@ -1,5 +1,7 @@
 # AsianBreak
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/hakatashi/AsianBreak.svg)](https://greenkeeper.io/)
+
 > Line Break for East Asian People
 
 [travis-image]: https://travis-ci.org/hakatashi/AsianBreak.svg?branch=master
