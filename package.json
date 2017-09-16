@@ -45,7 +45,7 @@
     "intern": "^3.2.1",
     "lcov-sourcemap": "^0.3.0",
     "livescript": "^1.4.0",
-    "semantic-release": "^7.0.1",
+    "semantic-release": "^8.0.0",
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
