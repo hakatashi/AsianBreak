@@ -37,7 +37,7 @@
   "devDependencies": {
     "browserify": "^14.0.0",
     "browserify-livescript": "^0.2.3",
-    "coveralls": "^2.11.12",
+    "coveralls": "^3.0.0",
     "gulp": "^3.9.0",
     "gulp-livescript": "^3.0.0",
     "gulp-rename": "^1.2.2",
