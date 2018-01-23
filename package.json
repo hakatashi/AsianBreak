@@ -46,10 +46,10 @@
     "lcov-sourcemap": "^0.3.0",
     "livescript": "^1.4.0",
     "semantic-release": "^12.2.4",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
     "core-js": "^2.0.0",
-    "eastasianwidth": "^0.1.1"
+    "eastasianwidth": "^0.2.0"
   }
 }
