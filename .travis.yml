@@ -3,11 +3,6 @@ matrix:
   include:
     - node_js: node
     - node_js: 6
-    - node_js: 4
-    - node_js: node
-      env: NVM_NODEJS_ORG_MIRROR=https://nodejs.org/download/nightly
-  allow_failures:
-    - env: NVM_NODEJS_ORG_MIRROR=https://nodejs.org/download/nightly
 before_install:
   - npm i -g npm@^2.0.0
 before_script:
