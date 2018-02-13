@@ -35,7 +35,7 @@
   },
   "homepage": "https://github.com/hakatashi/AsianBreak#readme",
   "devDependencies": {
-    "browserify": "^15.0.0",
+    "browserify": "^16.0.0",
     "browserify-livescript": "^0.2.3",
     "coveralls": "^3.0.0",
     "gulp": "^3.9.0",
