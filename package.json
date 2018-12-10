@@ -38,7 +38,7 @@
     "browserify": "^16.0.0",
     "browserify-livescript": "^0.2.3",
     "coveralls": "^3.0.0",
-    "gulp": "^3.9.0",
+    "gulp": "^4.0.0",
     "gulp-livescript": "^3.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-sourcemaps": "^2.1.1",
